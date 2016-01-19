@@ -2,25 +2,25 @@
 # Word grid is a 2d array of words and word combinations derived from all the sentences provided
 
 #Import Libraries
-from operator import itemgetter
 
 
 #Global Variables
-database = 'region_waterloo'
-user = 'postgres'
-password ='love2Learn'
-host = 'localhost'
-port = '5433'
+#database = 'region_waterloo'
+#user = 'postgres'
+#password ='love2Learn'
+#host = 'localhost'
+#port = '5433'
 
 #DB Variables
-table_name='iht_trained_survey'
-text_column='comment'
-category='match_tabl'
+#word_output_table = 'iht_word_combos2'
+#table_name = 'iht_trained_survey'
+#text_column = 'comment'
+#category = 'match_tabl'
 
 
 #SQL QUERIES
-tsvector_query="select gid, to_tsvector('simple',"+text_column+"),"+category+", "+text_column+" from "+table_name+" where "+category+" is not Null"
-tstat_query="select array_agg(word) from ts_stat('"+"select to_tsvector(''simple'', "+text_column+") from "+table_name+"')"
+#tsvector_query="select gid, to_tsvector('simple',"+text_column+"),"+category+", "+text_column+" from "+table_name+" where "+category+" is not Null"
+#tstat_query="select array_agg(word) from ts_stat('"+"select to_tsvector(''simple'', "+text_column+") from "+table_name+"')"
 
 
 
@@ -29,6 +29,7 @@ class wordgrid:
 
     def __init__(self,database,user,password,host,port):
         # Calls to connect to DB and create a cursor
+        from operator import itemgetter
         import psycopg2 as psy
         self.conn = psy.connect(database=database,user=user,password=password,host=host,port=port)
         self.cur = self.conn.cursor()
@@ -118,7 +119,7 @@ class wordgrid:
         for key in keys:
             sentence = sentence + diction[key]+' '
             
-        for num in range(2,combos+1):
+        for num in range(1,combos+1):
                 group_array = group_array + self.dict2combo(diction,num)
                 
         return [sentence.replace("'",""),group_array]
@@ -142,13 +143,13 @@ class wordgrid:
         return tsv_return
 
     
+#Execution of Functions, vectors need to be created before db can be updated
 
-wg = wordgrid(database,user,password,host,port)
-vectors = wg.db_query(tsvector_query)
-wg.exclude_terms(['the trail'])
-vector_group = wg.tsv_dict(vectors,1)
-
-wg.keywords2postgres('iht_word_combos')
+#wg = wordgrid(database,user,password,host,port)
+#vectors = wg.db_query(tsvector_query)
+#wg.exclude_terms(['the trail'])
+#vector_group = wg.tsv_dict(vectors,1)
+#wg.keywords2postgres(word_output_table)
 
 #combo_counts = wg.get_sorted_stats('d')
 
