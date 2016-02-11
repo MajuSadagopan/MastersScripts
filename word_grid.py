@@ -2,6 +2,11 @@
 # Word grid is a 2d array of words and word combinations derived from all the sentences provided
 
 #Import Libraries
+
+import sys
+sys.path.append('D:\ProgramFiles\Python27\winpython\WinPython-64bit-2.7.10.3\python-2.7.10.amd64\Lib\site-packages')
+
+
 from operator import itemgetter
 '''
 #Global Variables
