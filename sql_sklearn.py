@@ -190,9 +190,8 @@ class sk_sql:
         
 
 sksql = sk_sql(database,user,password,host,port)
-#sk_model = sksql.sk_model(table_name,text_column,category,keys_table,key_col,key_id,60)
 
-nltk_model = sksql.nltk_model(table_name,text_column,category,keys_table,key_col,key_id,80,'k_iht')
+
 
 for word in set(sksql.categories):
     nltk_model = sksql.nltk_model(table_name,text_column,category,keys_table,key_col,key_id,80,word)
