@@ -1,5 +1,8 @@
 import sklearn
 import numpy
+import sys
+
+sys.path.append('D:\ProgramFiles\Python27\winpython\WinPython-64bit-2.7.10.3\python-2.7.10.amd64\Lib\site-packages')
 
 
 #Global Variables
